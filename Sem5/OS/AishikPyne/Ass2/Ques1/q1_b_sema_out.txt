@@ -1,0 +1,37 @@
+shmkey for p = 84279302
+p=0 is allocated in shared memory.
+
+semaphores initialized.
+
+Child - Y  PID - 24155  Iteration - 0
+Child - Y  PID - 24155  Iteration - 1
+Child - Y  PID - 24155  Iteration - 2
+Child - Y  PID - 24155  Iteration - 3
+Child - Y  PID - 24155  Iteration - 4
+Child - Y  PID - 24155  Iteration - 5
+Child - Y  PID - 24155  Iteration - 6
+Child - Y  PID - 24155  Iteration - 7
+Child - Y  PID - 24155  Iteration - 8
+Child - Y  PID - 24155  Iteration - 9
+shmkey for p = 84279302
+p=0 is allocated in shared memory.
+
+semaphores initialized.
+
+Child - X  PID - 24154  Iteration - 0
+Child - X  PID - 24154  Iteration - 1
+Child - X  PID - 24154  Iteration - 2
+Child - X  PID - 24154  Iteration - 3
+Child - X  PID - 24154  Iteration - 4
+Child - X  PID - 24154  Iteration - 5
+Child - X  PID - 24154  Iteration - 6
+Child - X  PID - 24154  Iteration - 7
+Child - X  PID - 24154  Iteration - 8
+Child - X  PID - 24154  Iteration - 9
+shmkey for p = 84279302
+p=0 is allocated in shared memory.
+
+semaphores initialized.
+
+
+Parent: All children have exited.

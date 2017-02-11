@@ -1,0 +1,5 @@
+New Allocated Memory: segment_id = 11796508
+shared memory attached at address 0x7fb3874e3000
+segment size: 25600
+shared memory reattached at address 0x7fb3874dc000
+Hello, world!.
