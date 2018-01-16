@@ -1,0 +1,11 @@
+FIBO
+##  SYMBOL -->> FIRST ||   ADDRESS -->> 0   ##
+##  SYMBOL -->> LENGTH ||   ADDRESS -->> E   ##
+##  SYMBOL -->> RDREC ||   ADDRESS -->> 11   ##
+##  SYMBOL -->> RLOOP ||   ADDRESS -->> 13   ##
+##  SYMBOL -->> INPUT ||   ADDRESS -->> 2C   ##
+##  SYMBOL -->> WRREC ||   ADDRESS -->> 2D   ##
+##  SYMBOL -->> WLOOP ||   ADDRESS -->> 39   ##
+##  SYMBOL -->> OUTPUT ||   ADDRESS -->> 55   ##
+##  SYMBOL -->> VALUE1 ||   ADDRESS -->> 56   ##
+##  SYMBOL -->> VALUE2 ||   ADDRESS -->> 59   ##

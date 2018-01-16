@@ -1,0 +1,10 @@
+1. Take a char from keyboard and print
+2. Convert a letter from uppercase to lower case
+3. Print all chars from A-Z
+4. Print your name
+5. Print Fibo series
+6. Print look up table
+7. Prime number checking
+8. GCD of 2 nos
+9. HEX to Decimal
+10. Factorial
