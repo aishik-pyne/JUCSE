@@ -1,18 +1,21 @@
 # JUCSE
-College Work.  
-
-**Warning** don't clone this repo as it contains lots of pdfs which may take huge time. SVN checkout the subdirectories you need for faster results.  
+College Work.
 
 This is complilation of the lab work I have over my Undergrad Computer Science and Engineering Course at Jadavpur University, Kolkata
 
-### Sem2 
+
+This course syllabus is [here](http://www.jaduniv.edu.in/upload_files/course_file/1408615750-1.pdf)
+All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBgMO5sSNIoV5lrQLUpgA)
+
+
+### Sem2
 * Introduction to C
 ---
-### Sem3 
-* Data Structures and Algorithms 
+### Sem3
+* Data Structures and Algorithms
 * Numerical Methods
 ---
-### Sem4 
+### Sem4
 * Opject Oriented Programming
 ---
 ### Sem5
@@ -27,3 +30,7 @@ This is complilation of the lab work I have over my Undergrad Computer Science a
   * UNIX commands
   * InterProcess Communication
 ---
+### Sem6
+* Computer Networks
+* Database Management System
+* Compiler Design
