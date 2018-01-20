@@ -10,13 +10,19 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 
 ### Sem2
 * Introduction to C
+
+
 ---
 ### Sem3
 * Data Structures and Algorithms
 * Numerical Methods
+
+
 ---
 ### Sem4
 * Opject Oriented Programming
+
+
 ---
 ### Sem5
 * System Programming
@@ -29,6 +35,8 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 * Operating Systems
   * UNIX commands
   * InterProcess Communication
+
+
 ---
 ### Sem6
 * Computer Networks
