@@ -52,6 +52,14 @@ class CRC():
 
         return divident
 
+    def _corrupt_frame(self, frame):
+        from random import randrange
+        pos = randrange(0, len(frame))
+        if frame[pos] = 0:
+            return text[:pos] + '1' + text[pos+1:]
+        else:
+            return text[:pos] + '0' + text[pos+1:]
+
     def encode(self, text='', verbose=False):
         if verbose:
             print('\n\t\tENCODING\n')
