@@ -54,11 +54,9 @@ class CRC():
 
     def _corrupt_frame(self, frame):
         from random import randrange
-        pos = randrange(0, len(frame))
-        if frame[pos] = 0:
-            return text[:pos] + '1' + text[pos+1:]
-        else:
-            return text[:pos] + '0' + text[pos+1:]
+        pos = randrange(0, self.frame_size)
+        frame = frame ^ (1<<pos)
+        return frame
 
     def encode(self, text='', verbose=False):
         if verbose:
@@ -93,7 +91,7 @@ class CRC():
                 if verbose:
                     print('Frame {0:03} Data {1:b} \t Str {2}'.format(idx, f, repr(''.join([chr(x) for x in self._deconcat_bytes(f)])) ))
 
-        return text.strip()
+        return text
 
 
 # with open('input.txt', 'r') as f:
