@@ -20,6 +20,16 @@ class SqlConnector:
         except Exception as e:
             print(e)
 
+    def get_students(self):
+        try:
+            with self.connection.cursor() as cursor:
+                sql = "SELECT * FROM `students` "
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                return result
+        except Exception as e:
+            print(e)
+
     def add_student(self, student):
         try:
             with self.connection.cursor() as cursor:
