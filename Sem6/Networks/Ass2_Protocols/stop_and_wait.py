@@ -28,7 +28,6 @@ class StopAndWait():
         if self.user == 'sender':
             self.socket = socket.socket()
             self.socket.bind((host, port))
-<<<<<<< HEAD
             self.socket.listen(1)
         elif self.user == 'receiver':
             self.socket = socket.socket()
@@ -56,25 +55,11 @@ class StopAndWait():
     def send(self, text, corrupt_simulation=True, verbose=False):
         frames = self.crc.encode(text=text, verbose=True)
         c, addr = self.socket.accept()
-=======
-            self.socket.listen(5)
-    def _send_one_frame(self, frame):
-        pass
-
-    def _receive_ack(self):
-        pass
-
-    def send(self, text, verbose=False):
-        frames = self.crc.encode(text=text)
-        c, addr = s.accept()
-        c.sendall(msglen.encode('utf-8'))
->>>>>>> 0ca10807915fb1c10f2c6459b2ac6cdfcd51234a
         for f in frames:
             self._send_one_frame(f, conn=c, corrupt_simulation=corrupt_simulation)
             while not self._receive_ack(conn=c):
                 self._send_one_frame(f, conn=c)
         c.close()
-<<<<<<< HEAD
 
 
     def _receive_one_frame(self):
@@ -105,8 +90,6 @@ class StopAndWait():
                 text += decoded_frame
             else:
                  self._send_ack(False)
-=======
->>>>>>> 0ca10807915fb1c10f2c6459b2ac6cdfcd51234a
 
 
         self.socket.close()
@@ -124,7 +107,6 @@ if __name__ == '__main__':
         port = 8000
 
     print('Simulating StopAndWait Protocol for {}'.format(user))
-<<<<<<< HEAD
     saw = StopAndWait(user=user, port=port)
     if user == 'sender':
         with open('input.txt') as f:
@@ -132,6 +114,3 @@ if __name__ == '__main__':
         saw.send(text)
     elif user == 'receiver':
         print(saw.receive())
-=======
-    with open('input.txt') as f:
->>>>>>> 0ca10807915fb1c10f2c6459b2ac6cdfcd51234a
