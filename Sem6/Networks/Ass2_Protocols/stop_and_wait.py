@@ -1,5 +1,4 @@
 from crc import CRC
-<<<<<<< HEAD
 import sys, socket
 
 class StopAndWait():
@@ -22,7 +21,7 @@ class StopAndWait():
 
     def _receive_ack(self):
         pass
-        
+
     def send(self, text, verbose=False):
         frames = self.crc.encode(text=text)
         c, addr = s.accept()
@@ -33,19 +32,6 @@ class StopAndWait():
             c.sendall(str(f).zfill(8).encode('utf-8'))
             print('{} sent'.format(str(f).zfill(8)))
         c.close()
-=======
-import sys
-class StopAndWait:
-
-    def __init__(crc = CRC()):
-        self.crc = crc # This will act as a decoder and encoder for the protocol
-
-    def send(text, verbose=False):
-        frames = self.crc.encode(text=text)
-        print(frames)
->>>>>>> 98faf173c05dd8119deaad8d8035cee451685d0e
-
-
 
 
 if __name__ == '__main__':
@@ -56,11 +42,3 @@ if __name__ == '__main__':
 
     print('Simulating StopAndWait Protocol for {}'.format(user))
     with open('input.txt') as f:
-<<<<<<< HEAD
-        text = f.read()
-
-    saw = StopAndWait()
-    saw.send(text)
-=======
-        text =
->>>>>>> 98faf173c05dd8119deaad8d8035cee451685d0e
