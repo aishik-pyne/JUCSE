@@ -1,38 +1,42 @@
-# Import socket module
-import socket
+import socket, sys
+from crc import CRC
 
-# Create a socket object
-s = socket.socket()
-
-# Define the port on which you want to connect
-port = 9000
-
+# Set up params
+if len(sys.argv)>=2:
+    port = int(sys.argv[1])
+else:
+    port = 8000
+host = socket.gethostname()
 frames = []
+decoder = CRC()
 
-s.connect(('127.0.0.1', port))
-l = int(s.recv(8))
+# Set up socket
+s = socket.socket()
+s.connect((host, port))
+
+
+l = int(s.recv(8).decode('utf_8'))
+print(l)
+print(type(l))
 print('Got length {}'.format(l))
-# s.close()
-while True:
-    # s.connect(('127.0.0.1', port))
-    # receive data from the server
-    received = s.recv(8)
+text = []
+while l:
+
+    received = s.recv(8).decode('utf_8')
     if received == '':
         break
     received = int(received)
     print('Received {}'.format(received))
-    frames.append(received)
-
-    # close the connection
-    # s.close()
+    decoded_frame = decoder.decode([received], verbose=True)
+    if decoded_frame != None:
+        text.append(decoded_frame)
     l -= 1
-    if l is 0:
-        break
+
 s.close()
-from crc import CRC
-c = CRC()
-text = c.decode(frames)
+
 print('\t\t')
+# print(text)
+text = ''.join(text)
 print(text)
 with open('output.txt', 'w') as f:
     f.write(text)

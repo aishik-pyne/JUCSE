@@ -1,45 +1,38 @@
 # first of all import the socket library
-import socket
-
-# next create a socket object
+import socket, sys
+from sys import getsizeof
+from crc import CRC
+from random import randrange
+encoder = CRC()
 s = socket.socket()
 print("Socket successfully created")
 
-# reserve a port on your computer in our
-# case it is 12345 but it can be anything
-port = 9000
+if len(sys.argv)>=2:
+    port = int(sys.argv[1])
+else:
+    port = 8000
+host = socket.gethostname()
 
-# Next bind to the port
-# we have not typed any ip in the ip field
-# instead we have inputted an empty string
-# this makes the server listen to requests
-# coming from other computers on the network
-s.bind(('localhost', port))
+s.bind((host, port))
 print("socket binded to {}".format(port))
-
 # put the socket into listening mode
 s.listen(5)
 print("socket is listening")
 
-# a forever loop until we interrupt it or
-# an error occurs
+# Read input text
 with open('input.txt', 'r') as f:
     text = f.read()
-from crc import CRC
-c = CRC()
-frames = c.encode(text)
+    frames = encoder.encode(text, verbose=True)
+    msglen = str(len(frames)).zfill(8)
+    print(getsizeof(frames))
 c, addr = s.accept()
-c.send(str(len(frames)).zfill(8))
 
-# c.close()
+
+
+c.sendall(msglen.encode('utf-8'))
 for f in frames:
-   # Establish connection with client.
-   # c, addr = s.accept()
-   # print(( 'Got connection from', addr))
-
-   # send a thank you message to the client.
-   c.send(str(f))
-   print('{} sent'.format(f))
-
-   # Close the connection with the client
+    if randrange(0,10) <=2:
+        f = encoder._corrupt_frame(f)
+    c.sendall(str(f).zfill(8).encode('utf-8'))
+    print('{} sent'.format(str(f).zfill(8)))
 c.close()

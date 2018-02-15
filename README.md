@@ -25,20 +25,20 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 
 ---
 ### Sem5
-* System Programming
+* [System Programming](https://github.com/aishik-pyne/JUCSE/tree/master/Sem5/SysProg)
   * MASM Programming
   * Assembler Design
-* Computer Graphics
+* [Computer Graphics](https://github.com/aishik-pyne/JUCSE/tree/master/Sem5/CompGraphics)
   * Raster graphics - DDA, Bresenham, Polygon Filling
   * 2D Transformation - Scaling Shrearing Rotation Translation
   * Project: Simulate the Solar System using `graphics.h`
-* Operating Systems
+* [Operating Systems](https://github.com/aishik-pyne/JUCSE/tree/master/Sem5/OS/AishikPyne)
   * UNIX commands
   * InterProcess Communication
 
 
 ---
 ### Sem6
-* Computer Networks
-* Database Management System
-* Compiler Design
+* [Computer Networks](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/CompilerDesign)
+* [Database Management System](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/DBMS)
+* [Compiler Design](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/Networks)

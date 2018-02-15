@@ -1,0 +1,1 @@
+select avg(EMP.BASIC) from EMP where EMP.BASIC is not NULL;
