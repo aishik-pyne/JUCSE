@@ -39,6 +39,6 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 
 ---
 ### Sem6
-* [Computer Networks](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/CompilerDesign)
+* [Computer Networks](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/Networks/)
 * [Database Management System](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/DBMS)
-* [Compiler Design](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/Networks)
+* [Compiler Design](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/CompilerDesign)
