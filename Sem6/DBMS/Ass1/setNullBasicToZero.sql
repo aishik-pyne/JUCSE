@@ -1,0 +1,2 @@
+SET SQL_SAFE_UPDATES = 0;
+UPDATE `ass1`.`EMP` SET `BASIC`='0' WHERE `BASIC` is null;
