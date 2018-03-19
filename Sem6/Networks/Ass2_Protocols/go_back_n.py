@@ -82,7 +82,7 @@ class GoBackNReceiver():
         print('Frame seq_num {} received {}'.format(seq_num, frame))
         if frame:
             return seq_num, int(frame)
-        return seq_num, None
+        return seq_num, None # End of stream
 
     def receive(self):
         text = ''
@@ -92,7 +92,8 @@ class GoBackNReceiver():
             if frame == None:
                 break
             decoded_frame = self.crc.decode([frame])
-            if decoded_frame != None:
+            if decoded_frame != None and seq_num == self.exp_seq_num:
+                self.exp_seq_num += 1
                 self._send_ack(seq_num, True)
                 text += decoded_frame
             else:
