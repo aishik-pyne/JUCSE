@@ -9,8 +9,8 @@ from collections import namedtuple
 import pickle
 
 # Method to send to client
-def rdt_send(exp_seq_no):
-	return pickle.dumps({'seq_no':exp_seq_no, 'ack':True})
+def rdt_send(got_seq_no):
+	return pickle.dumps({'seq_num':got_seq_no, 'ack':True})
 
 # Write to File
 def f_write(decoded,f_name):
@@ -37,12 +37,13 @@ if __name__ == '__main__':
 	while 1:
 		msg, client_address = s.recvfrom(65535)
 		data = pickle.loads(msg)
-		got_seq_no, frame = data['seq_no'], data['frame']
-		if random() > probability: # Random packet drop simulation
-			decoded = crc.decode([frame])
-			if decode is not None: # Checksum is correct
+		got_seq_no, frame = data['seq_num'], data['frame']
+		print('Packet Recv seq_no {} '.format(got_seq_no))
+		if random() < probability: # Random packet drop simulation
+			decoded = crc.decode([frame], verbose=True)
+			if decoded is not None: # Checksum is correct
 				if got_seq_no == exp_seq_no: # Send ack
-					to_send = rdt_send(exp_seq_no)
+					to_send = rdt_send(got_seq_no)
 					if to_send:
 						s.sendto(to_send, client_address)
 						f_write(decoded,output_file)
