@@ -1,0 +1,77 @@
+{
+    "TABLES": {
+        "STUDENTS": {
+            "attributes": [
+                {
+                    "attribute_name": "ROLL",
+                    "attribute_type": "INT"
+                },
+                {
+                    "attribute_name": "NAME",
+                    "attribute_type": "STRING"
+                },
+                {
+                    "attribute_name": "DEPT_CODE",
+                    "attribute_type": "STRING"
+                },
+                {
+                    "attribute_name": "GENDER",
+                    "attribute_type": "CHAR"
+                },
+                {
+                    "attribute_name": "EMAIL",
+                    "attribute_type": "STRING"
+                },
+                {
+                    "attribute_name": "PHONE",
+                    "attribute_type": "INT"
+                }
+            ],
+            "primary_key": [
+                {
+                    "attribute_name": "ROLL",
+                    "attribute_type": "INT"
+                }
+            ],
+            "file_path": "tables/STUDENTS.csv"
+        },
+        "DEPARTMENTS":{
+            "attributes": [
+                {
+                    "attribute_name": "DEPT_CODE",
+                    "attribute_type": "STRING"
+                },
+                {
+                    "attribute_name": "DEPT_NAME",
+                    "attribute_type": "STRING"
+                }
+            ],
+            "primary_key": [
+                {
+                "attribute_name": "DEPT_CODE",
+                "attribute_type": "STRING"
+                }
+            ],
+            "file_path": "tables/DEPARTMENTS.csv"
+        },
+        "RESULT":{
+            "attributes": [
+                {
+                    "attribute_name": "ROLL",
+                    "attribute_type": "INT"
+                },
+                {
+                    "attribute_name": "CGPA",
+                    "attribute_type": "FLOAT"
+                }
+            ],
+            "primary_key": [
+                {
+                    "attribute_name": "ROLL",
+                    "attribute_type": "INT"
+                }
+            ],
+            "file_path": "tables/RESULT.csv"
+        }
+    }
+}
