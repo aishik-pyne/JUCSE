@@ -51,4 +51,8 @@ class QueryProcessor:
 
 if __name__ == '__main__':
     Q = QueryProcessor()
-    Q.query_parser(input())
+    while True:
+        ip = input('pyne_sql > ')
+        if ip == 'exit':
+            break
+        Q.query_parser(ip)
