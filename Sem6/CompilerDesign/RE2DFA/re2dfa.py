@@ -1,17 +1,36 @@
+#!/usr/bin/python3
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 class DFA():
     def __init__(self, states=[], symbols=[], start_state=None, final_states=[]):
-        self.states = states
+        self.states = []
         self.symbols = symbols
         self.start_state = start_state
         self.final_states = final_states
-        self.transitions = [{s:None for s in self.symbols} for _ in self.states]
-        print(self.transitions)
+        self.transitions = {}
+        for s in states:
+            self.add_state(s)
 
+    def add_state(self, state):
+        self.states.append(state)
+        self.transitions[state] = {}
+
+    def add_final_state(self, state):
+        self.final_states.append(state)
     def add_transition(self, start, symbol, destination):
-        if not self.transitions[start][symbol]:
+        if symbol not in self.transitions[start]:
             self.transitions[start][symbol] = destination
         else:
             print("Transition already exists")
+
+    def print_dfa(self):
+        print("\n\tDFA \n------------------------")
+        print("STATES \t{}".format(self.states))
+        print("SYMBOL \t{}".format(self.symbols))
+        print("TRANSITIONS")
+        pp.pprint(self.transitions)
+        print("START STATE \t{}".format(self.start_state))
+        print("FINAL STATE \t{}".format(set(self.final_states)))
 
     def simulate(self, string):
         current_state = self.start_state
@@ -47,26 +66,37 @@ class Node():
         return False
 
     def printTree(self):
-        if True:#not self._isleaf():
+        if not self._isleaf():
             if self.parent:
                 parent = self.parent.val
             else:
                 parent = 'root'
-            print('Parent:{} \tNode: {} \nfirst_pos: {} \tlast_pos: {} \tnullable: {}'.format(parent, self.val, self.first_pos, self.last_pos, self.nullable))
-            print('Follow Pos: {}'.format(self.follow_pos))
-            print('Children: {}\n'.format([x.val for x in self.children]))
+
+            print("{}\t{}\t{} \t\t nullable: {}".format(self.first_pos, self.val, self.last_pos, self.nullable))
+            print("Children\t{}\n".format('\t'.join([str(x) for x in self.children])))
 
             for x in self.children:
                 x.printTree()
+
+    def __str__(self):
+        return self.val
 
 class ParseTree():
     def __init__(self, exp):
         self.exp = exp+'#'
         self.pos = 1
         self.leaves = {}
+        self.symbols = set()
         self.root = self.parse()
         self.compulte_nfl(self.root)
         self.compulte_followpos(self.root)
+        self.to_dfa()
+
+    def _tostr(self, state):
+        string = ''
+        for s in sorted(list(state)):
+            string += str(s) + ','
+        return string
 
     def compulte_nfl(self, node):
         if not node._isleaf():
@@ -100,7 +130,7 @@ class ParseTree():
                 self.compulte_followpos(c)
         if node.val == '.':
             for i in node.children[0].last_pos:
-                self.leaves[i].follow_pos |= node.children[0].first_pos
+                self.leaves[i].follow_pos |= node.children[1].first_pos
         elif node.val == '*':
             for i in node.last_pos:
                 self.leaves[i].follow_pos |= node.first_pos
@@ -130,7 +160,6 @@ class ParseTree():
                     node.parent = Node(None, None)
                     node.parent.children.append(node)
                     node=node.parent
-
             elif char == '.' or char == '|':
                 if node.val: # asscend from right side
                     newNode = Node(char, None)
@@ -145,6 +174,7 @@ class ParseTree():
                 # print('operator <{}>'.format(char))
             elif char.isdigit() or char.isalpha():
                 node.val = char
+                self.symbols.add(char)
                 node.first_pos.add(self.pos)
                 node.last_pos.add(self.pos)
                 self.leaves[self.pos] = node
@@ -170,24 +200,86 @@ class ParseTree():
         node.children[-1].first_pos.add(self.pos)
         node.children[-1].last_pos.add(self.pos)
         self.leaves[self.pos] = node
+        self.final_pos = self.pos # DFA FINAL STATE
 
         return node
 
     def print_follow_pos(self):
+        print("\tFOLLOW POS \n------------------------")
         print('NODE\tFOLOWPOS')
         for pos, node in self.leaves.items():
             print('{}\t{}'.format(pos,node.follow_pos))
 
     def print_syntax_tree(self):
-        pass
+        print("\tSYNTAX TREE\n------------------------")
+        self.root.printTree()
+
+    def _allmarked(self):
+        for item in self.Dstates:
+            if item["marked"] == False:
+                return False
+        return True
+
+    def _markstate(self, state):
+        for idx, item in enumerate(self.Dstates):
+            if item["state"] == state:
+                self.Dstates[idx]["marked"] = True
+
+    def _stateexists(self, state):
+        for item in self.Dstates:
+            if item["state"] == state:
+                return True
+        return False
+
+    def _getunmarkedstate(self):
+        for item in self.Dstates:
+            if item["marked"] == False:
+                return item["state"]
+
+    def to_dfa(self):
+        self.dfa = DFA(symbols=self.symbols, start_state=self._tostr(self.root.first_pos))
+        self.Dstates = [{"state":self.root.first_pos,"marked":False}]
+        allmarked = False
+
+        while not self._allmarked():
+            S = self._getunmarkedstate()
+            self._markstate(S)
+            self.dfa.add_state(self._tostr(S))
+            if self.final_pos in S:
+                self.dfa.add_final_state(self._tostr(S))
+            for a in self.symbols:
+                U = set()
+                for p in S:
+                    if self.leaves[p].val == a:
+                        U |= self.leaves[p].follow_pos
+                if not self._stateexists(U):
+                    self.Dstates.append({"state":U, "marked":False})
+                self.dfa.add_transition(self._tostr(S), a, self._tostr(U))
+
+        return self.dfa
+
 if __name__ == '__main__':
-    # d = DFA([0,1,2,3], ['a', 'b', 'c'], 0, [3])
-    # d.add_transition(1,'a',2)
-    # d.add_transition(1,'b',3)
-    # d.add_transition(2,'c',3)
-    # d.add_transition(0,'c',2)
+    # d = DFA(['123','1234','1235','1236'], ['a', 'b'], '123', ['1236'])
+    # d.add_transition('123','a','1234')
+    # d.add_transition('123','b','123')
+    # d.add_transition('1234','a','1234')
+    # d.add_transition('1234','b','1235')
+    # d.add_transition('1235','a','1234')
+    # d.add_transition('1235','b','1236')
+    # d.add_transition('1236','a','123')
     #
-    # print(d.simulate('ccccc'))
-    p = ParseTree('(a|b)*.a.a.b')
-    p.root.printTree()
+    # pp.pprint(d.transitions)
+    # print(d.simulate('cc'))
+    
+    p = ParseTree('(a|b)*.a.b.b')
+    p.print_syntax_tree()
     p.print_follow_pos()
+    dfa = p.to_dfa()
+    dfa.print_dfa()
+    print(dfa.simulate('ababababaabab'))
+
+    # IF = ParseTree('i.f')
+    # FOR = ParseTree('f.o.r')
+    # INT = ParseTree('(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)')
+    # INT.print_syntax_tree()
+    # INT.to_dfa().print_dfa()
