@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import re, json, pandas as pd
 class DataDict:
     def __init__(self):
