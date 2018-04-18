@@ -11,7 +11,7 @@ class Users:
         self.users.append(address)
 
     def del_user(self, address):
-        self.user.remove(address)
+        self.users.remove(address)
 
 
 users = Users()
@@ -32,7 +32,7 @@ while True:
         sock.sendto(pickle.dumps({"response":"connected"}), address)
         print("User added {}".format(address))
     elif packet["type"] == "close":
-        users.dek_user(address)
+        users.del_user(address)
         sock.sendto(pickle.dumps({"response":"disconnected"}), address)
         print("User removed {}".format(address))
     elif packet["type"] == "isbusy":

@@ -16,6 +16,7 @@ class Receive(threading.Thread):
 
     def run(self):
         while self.alive:
+            # sock.settimeout(2)
             response, server = sock.recvfrom(4096)
             response = pickle.loads(response)
             # print(response)
@@ -37,6 +38,8 @@ class Sender(threading.Thread):
         tempSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         while self.alive:
             to = str(input("To: "))
+            if to == "exit":
+                break
             msg = str(input("Data: "))
             backoff = 1
             while True:
@@ -84,18 +87,20 @@ if len(sys.argv) == 2:
         receive_thread.start()
     except KeyboardInterrupt:
         # Disconnect
-        print("Killing Thread")
-        while True:
-            sock.sendto(pickle.dumps({"type":"close"}), server_address)
-            response, sender_address = sock.recvfrom(4096)
-            if pickle.loads(response)["response"] == "disconnected":
-                print("Disconnected to network...")
-                break
         send_thread.stop()
         receive_thread.stop()
     finally:
         send_thread.join()
-        receive_thread.join()
+        receive_thread.stop()
+        # receive_thread.join()
+        print("Killing Thread")
+        while True:
+            sock.sendto(pickle.dumps({"type":"close"}), server_address)
+            break
+            response, sender_address = sock.recvfrom(4096)
+            if pickle.loads(response)["response"] == "disconnected":
+                print("Disconnected to network...")
+                break
         print('Closing socket')
         sock.close()
 else:
