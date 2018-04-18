@@ -1,6 +1,24 @@
-#!/usr/bin/python3
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
+
+# Compiler Design Lab
+
+## Students
+* **Aishik Pyne - Roll 12 - BCSE3**
+* **Baidik Chandra - Roll 14 - BCSE3**
+* **Raunak Ghosh - Roll 21 - BCSE3**
+
+## Regular Expressions for identifying
+1. Integers - (0|1|2|3|4|5|6|7|8|9).(0|1|2|3|4|5|6|7|8|9)*
+2. Floats - ([0-9]).'.'.([0-9]*)
+3. Identifiers - [a-z].[0-9a-z]*
+4. IF - i.f
+5. FOR - f.o.r
+
+
+## Regular Expressions to DFA (Directly)
+
+#### DFA
+
+```python
 class DFA():
     def __init__(self, states=[], symbols=[], start_state=None, final_states=[]):
         self.states = []
@@ -35,18 +53,20 @@ class DFA():
     def simulate(self, string):
         current_state = self.start_state
         for idx, char in enumerate(string):
-            if self.transitions[current_state]:
-                if char in self.transitions[current_state]:
-                    current_state = self.transitions[current_state][char]
-                else:
-                    return False
+            if self.transitions[current_state][char]:
+                current_state = self.transitions[current_state][char]
             else:
                 return False
         if current_state in self.final_states:
             return True
         else:
             return False
+```
 
+#### ParseTree
+
+* Node of ParseTree
+```python
 class Node():
 
     def __init__(self, val=None, parent=None):
@@ -83,7 +103,11 @@ class Node():
 
     def __str__(self):
         return self.val
+```
 
+* ParseTree
+
+```python
 class ParseTree():
     def __init__(self, exp):
         self.exp = exp+'#'
@@ -260,8 +284,11 @@ class ParseTree():
                 self.dfa.add_transition(self._tostr(S), a, self._tostr(U))
 
         return self.dfa
+```
 
+#### Lexical Analyzer
 
+```python
 class LexAnalyzer():
 
     def __init__(self):
@@ -271,8 +298,6 @@ class LexAnalyzer():
         self.identifier = ParseTree('(a|b|c).(a|b|c|0|1|2)*.(a|b|c|0|1|2)').to_dfa()
         self.int = ParseTree(' (0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)').to_dfa()
         self.float = ParseTree(' (0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)').to_dfa()
-        ParseTree(' (0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)').print_syntax_tree()
-        self.int.print_dfa()
 
     def _is_delim(self, c):
         if c == '\n':
@@ -316,7 +341,7 @@ class LexAnalyzer():
         token_buffer = ''
         for idx, c in enumerate(stream):
             if self._is_delim(c):
-                # print(token_buffer)
+                print(token_buffer)
                 token_type = self._token_type(token_buffer)
                 if token_buffer != '':
                     if token_type is None:
@@ -337,31 +362,92 @@ class LexAnalyzer():
 
             self.col_no += 1
         return output
+```
 
-if __name__ == '__main__':
-    # d = DFA(['123','1234','1235','1236'], ['a', 'b'], '123', ['1236'])
-    # d.add_transition('123','a','1234')
-    # d.add_transition('123','b','123')
-    # d.add_transition('1234','a','1234')
-    # d.add_transition('1234','b','1235')
-    # d.add_transition('1235','a','1234')
-    # d.add_transition('1235','b','1236')
-    # d.add_transition('1236','a','123')
-    #
-    # pp.pprint(d.transitions)
-    # print(d.simulate('cc'))
+## Sample RE Input for ParseTree
 
-    p = ParseTree('(a|b)*.a.b.b')
-    p.print_syntax_tree()
-    p.print_follow_pos()
-    dfa = p.to_dfa()
-    dfa.print_dfa()
-    print(dfa.simulate('ababababaabab'))
+```
+(a|b)*.a.b.b
+```
 
-    # IF = ParseTree('i.f')
-    # FOR = ParseTree('f.o.r')
-    # INT = ParseTree('(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)')
-    # INT.print_syntax_tree()
-    # INT.to_dfa().print_dfa()
-    for x in LexAnalyzer().lexical_analyzer(open('input.c', 'r').read()):
-        print(x)
+## Output
+
+```
+SYNTAX TREE
+------------------------
+{1, 2, 3}	.	{6} 		 nullable: False
+Children	.	#
+
+{1, 2, 3}	.	{5} 		 nullable: False
+Children	.	b
+
+{1, 2, 3}	.	{4} 		 nullable: False
+Children	.	b
+
+{1, 2, 3}	.	{3} 		 nullable: False
+Children	*	a
+
+{1, 2}	*	{1, 2} 		 nullable: True
+Children	|
+
+{1, 2}	|	{1, 2} 		 nullable: False
+Children	a	b
+
+FOLLOW POS
+------------------------
+NODE	FOLOWPOS
+1	{1, 2, 3}
+2	{1, 2, 3}
+3	{4}
+4	{5}
+5	{6}
+6	set()
+
+DFA
+------------------------
+STATES 	['1,2,3,', '1,2,3,4,', '1,2,3,5,', '1,2,3,6,']
+SYMBOL 	{'b', 'a'}
+TRANSITIONS
+{   '1,2,3,': {'a': '1,2,3,4,', 'b': '1,2,3,'},
+  '1,2,3,4,': {'a': '1,2,3,4,', 'b': '1,2,3,5,'},
+  '1,2,3,5,': {'a': '1,2,3,4,', 'b': '1,2,3,6,'},
+  '1,2,3,6,': {'a': '1,2,3,4,', 'b': '1,2,3,'}}
+START STATE 	1,2,3,
+FINAL STATE 	{'1,2,3,6,'}
+
+```
+
+## Sample Lexical Analyzer Input
+
+```c
+int main()
+{
+  int a, b;
+  a = 10;
+  return 0;
+}
+
+```
+
+## LexAnalyzer Output
+
+```txt
+('int', 'keyword')
+('main', 'keyword')
+('(', 'symbol')
+(')', 'symbol')
+('{', 'symbol')
+('int', 'keyword')
+('a', 'identifier')
+(',', 'symbol')
+('b', 'identifier')
+(';', 'symbol')
+('a', 'identifier')
+('=', 'symbol')
+('10', 'Integer')
+(';', 'symbol')
+('return', 'keyword')
+('0', 'Integer')
+(';', 'symbol')
+('}', 'symbol')
+```
