@@ -40,5 +40,16 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 ---
 ### Sem6
 * [Computer Networks](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/Networks/)
+  * [CRC](Sem6/Networks/Ass1_CRC)
+  * [Stop&Wait, GoBackN](Sem6/Networks/Ass2_Protocols)
+  * [CSMA](Sem6/Networks/Ass3_CSMA)
+  * [CISCO Packet Tracer Simulation](Sem6/Networks/Ass5_CiscoPT)
+  * [UDP DNS Server](Sem6/Networks/Ass6_UDP_DNS)
 * [Database Management System](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/DBMS)
+  - Assignments
+  - [Database implementation in python](Sem6/DBMS/Ass6/)
 * [Compiler Design](https://github.com/aishik-pyne/JUCSE/tree/master/Sem6/CompilerDesign)
+  - Lexical Analyzer
+  - Lex
+  - Parser
+  - [RE to DFA Directly using First and Follow Pos](Sem6/CompilerDesign/RE2DFA)

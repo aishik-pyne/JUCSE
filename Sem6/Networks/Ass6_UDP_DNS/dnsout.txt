@@ -1,0 +1,10 @@
+Sending www.google.com
+Waiting for response...
+Received 172.217.166.174
+Sending www.facebook.com
+Waiting for response...
+Received 157.240.16.35
+Sending asd
+Waiting for response...
+Received None
+Closing socket

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import re, json, pandas as pd
 class DataDict:
     def __init__(self):
@@ -51,4 +52,8 @@ class QueryProcessor:
 
 if __name__ == '__main__':
     Q = QueryProcessor()
-    Q.query_parser(input())
+    while True:
+        ip = input('pyne_sql > ')
+        if ip == 'exit':
+            break
+        Q.query_parser(ip)
