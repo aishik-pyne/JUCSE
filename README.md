@@ -28,7 +28,7 @@ All the books used in course are in this [link](https://mega.nz/#F!AypBWKhT!gvBg
 * [System Programming](https://github.com/aishik-pyne/JUCSE/tree/master/Sem5/SysProg)
   * MASM Programming
   * Assembler Design
-* [Computer Graphics](https://github.com/aishik-pyne/JUCSE/tree/master/Sem5/CompGraphics)
+* [Computer Graphics](Sem5/CompGraphics)
   * Raster graphics - DDA, Bresenham, Polygon Filling
   * 2D Transformation - Scaling Shrearing Rotation Translation
   * Project: Simulate the Solar System using `graphics.h`
