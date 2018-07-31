@@ -356,7 +356,7 @@ if __name__ == '__main__':
     p.print_follow_pos()
     dfa = p.to_dfa()
     dfa.print_dfa()
-    print(dfa.simulate('ababababaabab'))
+    print(dfa.simulate('ababb'))
 
     # IF = ParseTree('i.f')
     # FOR = ParseTree('f.o.r')
