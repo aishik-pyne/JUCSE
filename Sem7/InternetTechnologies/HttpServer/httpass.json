@@ -1,0 +1,17 @@
+[
+    {
+        "username": "aishik-pyne",
+        "password": "123456",
+        "role": "manager"
+    },
+    {
+        "username": "manosij-ghosh",
+        "password": "123456",
+        "role": "guest"
+    },
+    {
+        "username": "sayantan-paul",
+        "password": "123456",
+        "role": "guest"
+    }
+]
