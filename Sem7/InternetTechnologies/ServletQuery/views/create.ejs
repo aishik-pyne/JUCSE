@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <form action="">
+        Key: <input id="key" type="text" name="key"><br> Value: <input id="value" type="text" name="value"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var key = document.getElementById("key").value;
+            var value = document.getElementById("value").value;
+
+            $.ajax({
+                url: "/",
+                method: "POST",
+                data: JSON.stringify({ "key": key, "value": value }),
+                contentType: "application/json",
+                error: (err) => {
+                    console.log(err);
+                },
+                success: () => {
+
+                    window.location.replace("/list");
+                }
+            });
+        });
+    });
+</script>
+
+</html>

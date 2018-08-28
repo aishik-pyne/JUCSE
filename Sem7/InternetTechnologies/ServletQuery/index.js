@@ -13,6 +13,8 @@ app.route("/")
 
 app.route("/list")
     .get(KeyValuePairController.list)
+app.route("/create")
+    .get(KeyValuePairController.create_page)
 
 
 app.listen(port, ()=>{
