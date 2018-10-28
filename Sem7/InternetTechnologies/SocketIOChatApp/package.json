@@ -1,0 +1,17 @@
+{
+  "name": "SocketIOChatApp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.3.2",
+    "config": "^2.0.1",
+    "express": "^4.16.4",
+    "moment": "^2.22.2",
+    "nodemon": "^1.18.5",
+    "socket.io": "^2.1.1"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  }
+}
