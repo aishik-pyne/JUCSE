@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chat App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/flexboxgrid.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="input-field">
+              <input placeholder="source" v-model="source" type="text" class="validate" @keypress.enter="getFlights()">
+              <label for="source">Source</label>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="input-field">
+              <input placeholder="destination" v-model="destination" type="text" class="validate" @keypress.enter="getFlights()">
+              <label for="destination">Destination</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th @click="changeSort('source')">Source
+                  <i v-show="sort == 'source'" class="tiny material-icons">{{ord == 'asc' ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                </th>
+                <th @click="changeSort('destination')">Dest
+                  <i v-show="sort == 'destination'" class="tiny material-icons">{{ord == 'asc' ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                </th>
+                <th @click="changeSort('departure')">Departure 
+                  <i v-show="sort == 'departure'" class="tiny material-icons">{{ord == 'asc' ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                </th>
+                <th @click="changeSort('cost')">Cost
+                    <i v-show="sort == 'cost'" class="tiny material-icons">{{ord == 'asc' ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                </th>
+                <th> Deal</th>
+                <th> Final Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="flight in processedFlights">
+                <td>{{flight.name}}</td>
+                <td>{{flight.source}}</td>
+                <td>{{flight.destination}}</td>
+                <td>{{flight.departure}}</td>
+                <td>&#x20b9; {{flight.cost}}</td>
+                <td>{{flight.deal ? `${flight.deal.name} ${flight.deal.discountPercent}% off`: ''}}</td>
+                <td>&#x20b9; {{flight.deal ? flight.cost*(100 - flight.deal.discountPercent)/100 : flight.cost}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-md-12">
+            <h6 class="right-align">Page {{page}} of {{pages}}</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="pagination center-align">
+              <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+              <li v-for="p in _.range(pages)" :class="{active: p+1==page}">
+                <a @click="page=p+1; getFlights()">{{p +1}}</a>
+              </li>
+              <!-- <li class="active"><a>1</a></li>
+              <li class="waves-effect"><a href="#!">2</a></li>
+              <li class="waves-effect"><a href="#!">3</a></li>
+              <li class="waves-effect"><a href="#!">4</a></li>
+              <li class="waves-effect"><a href="#!">5</a></li> -->
+              <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="js/main.js"></script>
+
+</html>
