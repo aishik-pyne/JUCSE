@@ -25,6 +25,12 @@ var app = new Vue({
       this.socket.emit('Sync', (response) => {
         this.chats = response
       });
+    },
+    color(name) {
+      console.log( name);
+      return {
+        'teal-text': true
+      }
     }
   },
   created() {

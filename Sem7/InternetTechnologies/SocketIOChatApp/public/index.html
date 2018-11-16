@@ -7,6 +7,7 @@
   <title>Chat App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/flexboxgrid.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -15,24 +16,22 @@
 <body>
   <div id="app" class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 ">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 
-        <div class="chatRow" v-for="(chat, idx) in chats" :key="idx">
-          <div class="col-xs-2 col-sm-2 col-md-2 name">
-            {{ chat.name }}
+        <div class="card-panel " v-for="(chat, idx) in chats" :key="idx">
+          <div class="col-xs-2 col-sm-2 col-md-2 " >
+            <p> <h6 :class="color(chat.name)">{{ chat.name }}</h6> {{ chat.timestamp }}</p>
           </div>
-          <div class="col-xs-8 col-sm-210 col-md-8 text">
+          <div class="col-xs-8 col-sm-210 col-md-8 ">
             {{ chat.text }}
           </div>
-          <div class="col-xs-2 col-md-2 timestamp">
-            {{ chat.timestamp }}
-          </div>
+          
         </div>
       </div>
     </div>
     <div class="row fixed-bottom">
       <div class="col-xs-11 col-md-11">
-        <input v-model="inputBox" @keyup.enter="sendText" type="text" class="inputBox">
+        <input v-model="inputBox" @keyup.enter="sendText" type="text" class="">
       </div>
       <div class="col-xs-1 col-md-1">
         <button @click.prevent="sendText" class="btn sendIcon"><i class="material-icons">send</i></button>
@@ -42,6 +41,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="js/main.js"></script>
 
 </html>
