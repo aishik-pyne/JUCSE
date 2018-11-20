@@ -63,3 +63,6 @@ Sem 4/OOP/SnakeGame/src/OnlineSample/dot.jpg
 Sem 4/OOP/SnakeGame/src/OnlineSample/apple.jpg
 **/__pycache__/*
 node_modules/
+yarn.lock
+local.json
+.vscode/
