@@ -73,8 +73,6 @@ end Behavioral;
 
 ```
 
-**Output Waveform**
-
 ---
 
 ## Full Adder Deisgn using Half Adder
@@ -144,8 +142,6 @@ end Behavioral;
 
 ```
 
-**Output Waveform**
-
 ---
 
 ## 4 Bit Ripple Carry Adder design using 1 Bit Full Adder
@@ -157,7 +153,6 @@ end Behavioral;
 **Circuit Diagram** :
 
 <img src="diagrams/ripple-carry-adder.png" alt="drawing"  height="300"/>
-
 
 **VHDL Code** :
 
@@ -206,8 +201,6 @@ end Behavioral;
 
 ```
 
-**Output Waveform**
-
 ---
 
 ## Adder Subtractor Block
@@ -218,7 +211,7 @@ end Behavioral;
 
 **Circuit Diagram** :
 
-<img src="diagrams/ripple-carry-adder.png" alt="drawing"  height="300"/>
+<img src="diagrams/addsub-block-adder.png" alt="drawing"  height="300"/>
 
 
 **VHDL Code** :
@@ -280,6 +273,101 @@ Cout &lt;= C4;
 end Behavioral;
 ```
 
-**Output Waveform**
+---
+
+## 2x1 Multiplexer
+
+**Experiment Number** : 5
+
+**Experiment Name** : 2x1 Multiplexer
+
+**Circuit Diagram** :
+
+<img src="diagrams/2x1mux.png" alt="drawing"  height="300"/>
+
+**VHDL Code** :
+
+```vhdl
+----------------------------------------------------------------------------------
+-- Design Name:    2:1 Multiplexer Design
+-- Module Name:    mux21 - Behavioral 
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity mux21 is
+    Port ( a : in  STD_LOGIC_VECTOR (1 downto 0);
+           s : in  STD_LOGIC;
+           y : out  STD_LOGIC);
+end mux21;
+
+architecture Behavioral of mux41 is
+
+begin
+
+-- Multiplexing process
+process(a,s)
+variable temp:std_logic;
+begin
+case s is
+    when "0" => temp:=a(0);
+    when "1" => temp:=a(1);
+    when others => temp:='X';
+    end case;
+    y<= temp;
+end process;
+
+end Behavioral;
+
+```
 
 ---
+
+## 4x1 Multiplexer using 2x1 Multiplexer
+
+**Experiment Number** : 7
+
+**Experiment Name** : 4x1 Multiplexer using 2x1 Multiplexer
+
+**Circuit Diagram** :
+
+<img src="diagrams/4x1mux.png" alt="drawing"  height="300"/>
+
+**VHDL Code** :
+
+```vhdl
+----------------------------------------------------------------------------------
+-- Design Name:    2:1 Multiplexer Design
+-- Module Name:    mux21 - Behavioral 
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity mux41 is
+    Port ( a : in  STD_LOGIC_VECTOR (3 downto 0);
+           s : in  STD_LOGIC_VECTOR (1 downto 0);
+           y : out  STD_LOGIC);
+end mux41;
+
+architecture Behavioral of mux41 is
+
+component mux21 is
+    Port ( a : in  STD_LOGIC_VECTOR (1 downto 0);
+           s : in  STD_LOGIC;
+           y : out  STD_LOGIC);
+end component;
+
+signal t1, t2:std_logic;
+
+begin
+
+MX0:mux21 port map(a(0),a(1),s(0), t1);
+MX1:mux21 port map(a(2),a(3),s(0), t2);
+MX2:mux21 port map(t1,t2,s(1), y);
+
+end Behavioral;
+
+```
+
+---
+
