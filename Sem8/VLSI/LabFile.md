@@ -2,24 +2,24 @@
 
 ## Index
 
-1. Half Adder
-2. Full Adder Deisgn using Half Adder
-3. 4 Bit Ripple Carry Adder design using 1 Bit Full Adder.
-4. Adder Subtractor Block
-5. BCD Adder
-6. 2:1 Multiplexer
-7. 4:1 Multiplexer design using 2:1 Multiplexer
-8. 1:4 Demultiplexer
-9. 3:8 Decoder
-10. Flip Flip
+1. [x] Half Adder
+2. [x] Full Adder Deisgn using Half Adder
+3. [x] 4 Bit Ripple Carry Adder design using 1 Bit Full Adder.
+4. [x] Adder Subtractor Block
+5. [ ] BCD Adder
+6. [x] 2:1 Multiplexer
+7. [x] 4:1 Multiplexer design using 2:1 Multiplexer
+8. [x] 1:4 Demultiplexer
+9. [ ] 3:8 Decoder
+10. [ ] Flip Flip
     - D Flip Flip
     - RS Flip Flip
     - JK Flip Flip
     - T Flip Flip
-11. 7 Segment Decoder
-12. 4 Bit Comparator
-13. Binary-to-Gray Code Converter
-14. 4 Bit ALU
+11. [x] 7 Segment Decoder
+12. [x] 4 Bit Comparator
+13. [ ] Binary-to-Gray Code Converter
+14. [x] 4 Bit ALU
 
 ---
 
@@ -213,7 +213,6 @@ end Behavioral;
 
 <img src="diagrams/addsub-block-adder.png" alt="drawing"  height="300"/>
 
-
 **VHDL Code** :
 
 ```vhdl
@@ -285,6 +284,13 @@ end Behavioral;
 
 <img src="diagrams/2x1mux.png" alt="drawing"  height="300"/>
 
+**Truth Table** :
+
+ |   S   |   Y   |
+ | :---: | :---: |
+ |   0   |  a0   |
+ |   1   |  a1   |
+
 **VHDL Code** :
 
 ```vhdl
@@ -333,6 +339,16 @@ end Behavioral;
 
 <img src="diagrams/4x1mux.png" alt="drawing"  height="300"/>
 
+**Truth Table** :
+
+ |  S0   |  S1   |   Y   |
+ | :---: | :---: | :---: |
+ |   0   |   0   |  a0   |
+ |   0   |   1   |  a1   |
+ |   1   |   0   |  a2   |
+ |   1   |   1   |  a4   |
+
+
 **VHDL Code** :
 
 ```vhdl
@@ -371,3 +387,225 @@ end Behavioral;
 
 ---
 
+## 4x1 De Multiplexer
+
+**Experiment Number** : 8
+
+**Experiment Name** : 4x1 De Multiplexer
+
+**Circuit Diagram** :
+
+<img src="diagrams/4x1demux.png" alt="drawing"  height="300"/>
+
+**Truth Table** :
+
+ |   F   |  S0   |  S1   |   A   |   B   |   C   |   D   |
+ | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+ |   1   |   0   |   0   |   1   |   0   |   0   |   0   |
+ |   1   |   0   |   1   |   0   |   1   |   0   |   0   |
+ |   1   |   1   |   0   |   0   |   0   |   1   |   0   |
+ |   1   |   1   |   1   |   0   |   0   |   0   |   1   |
+ |   0   |   X   |   X   |   0   |   0   |   0   |   0   |
+
+**VHDL Code** :
+
+```vhdl
+----------------------------------------------------------------------------------
+-- Design Name:    4:1 De Multiplexer Design
+-- Module Name:    demux41 - Behavioral 
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity demux41 is
+    Port ( a : in  STD_LOGIC_VECTOR (3 downto 0);
+           s : in  STD_LOGIC_VECTOR (1 downto 0);
+           y : out  STD_LOGIC);
+end demux41;
+
+architecture Behavioral of demux41 is
+
+begin
+
+process(f,s)
+
+    variable temp:std_logic;
+
+    begin
+    case s is
+        when "00" => temp:=A;
+        when "01" => temp:=B;
+        when "10" => temp:=C;
+        when "11" => temp:=D;
+        when others => temp:='X';
+    end case;
+    y<= temp and f;
+
+    end process;
+
+end Behavioral;
+
+```
+
+---
+
+## 7 Segment Decoder
+
+**Experiment Number** : 11
+
+**Experiment Name** : 7 Segment Decoder
+
+**Circuit Diagram** :
+
+![4 Bit Comparator](diagrams/7segdecod.png)
+
+**Truth Table** :
+
+| B3 B2 B1 B0 | ABCDEFG |
+| :---------: | :-----: |
+|    0000     | 0000001 |
+|    0001     | 1001111 |
+|    0010     | 0010010 |
+|    0011     | 0000110 |
+|    0100     | 1001100 |
+|    0101     | 0100100 |
+|    0110     | 0100000 |
+|    0111     | 0001111 |
+|    1000     | 0000000 |
+|    1001     | 0000100 |
+
+**VHDL Code** :
+
+```vhdl
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity bcd_7seg is
+Port ( B0,B1,B2,B3 : in STD_LOGIC;
+A,B,C,D,E,F,G : out STD_LOGIC);
+end bcd_7seg;
+
+architecture Behavioral of bcd_7seg is
+
+begin
+
+A <= B0 OR B2 OR (B1 AND B3) OR (NOT B1 AND NOT B3);
+B <= (NOT B1) OR (NOT B2 AND NOT B3) OR (B2 AND B3);
+C <= B1 OR NOT B2 OR B3;
+D <= (NOT B1 AND NOT B3) OR (B2 AND NOT B3) OR (B1 AND NOT B2 AND B3) OR (NOT B1 AND B2) OR B0;
+E <= (NOT B1 AND NOT B3) OR (B2 AND NOT B3);
+F <= B0 OR (NOT B2 AND NOT B3) OR (B1 AND NOT B2) OR (B1 AND NOT B3);
+G <= B0 OR (B1 AND NOT B2) OR ( NOT B1 AND B2) OR (B2 AND NOT B3);
+
+end Behavioral;
+
+```
+
+---
+
+## 4 Bit Comparator
+
+**Experiment Number** : 12
+
+**Experiment Name** : 4 Bit Comparator
+
+**Circuit Diagram** :
+
+![4 Bit Comparator](diagrams/4-bit-magnitude-comparator.jpg)
+
+**VHDL Code** :
+
+```vhdl
+Library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
+
+entity VHDL_Binary_Comparator is
+  port (
+    inp-A,inp-B   : in std_logic_vector(3 downto 0);
+    greater, equal, smaller  : out std_logic
+   );
+end VHDL_Binary_Comparator ; 
+
+architecture bhv of VHDL_Binary_Comparator is
+begin
+greater <= '1' when (inp-A > inp-B)
+else '0';
+equal <= '1' when (inp-A = inp-B)
+else '0';
+smaller <= '1' when (inp-A < inp-B)
+else '0';
+end bhv;
+```
+
+---
+
+## 4 Bit ALU
+
+**Experiment Number** : 14
+
+**Experiment Name** : 4 Bit ALU
+
+**Circuit Diagram** :
+
+![ALU](diagrams/4-bit-alu-vhdl.png)
+
+**Truth Table** :
+
+|  SI0  |  SI0  |  SI1  |   OP    |
+| :---: | :---: | :---: | :-----: |
+|   0   |   0   |   0   |   A+B   |
+|   0   |   0   |   1   |   A-B   |
+|   0   |   1   |   0   |   A-1   |
+|   0   |   1   |   1   |   A+1   |
+|   1   |   0   |   0   | A and B |
+|   1   |   0   |   1   | A or B  |
+|   1   |   1   |   0   |  not A  |
+|   1   |   1   |   1   | A xor B |
+
+**VHDL Code** :
+
+```vhdl
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity alu is
+ Port ( inp_a : in signed(3 downto 0);
+ inp_b : in signed(3 downto 0);
+ sel : in STD_LOGIC_VECTOR (2 downto 0);
+ out_alu : out signed(3 downto 0));
+end alu;
+
+architecture Behavioral of alu is
+begin
+process(inp_a, inp_b, sel) 
+begin
+case sel is
+ when "000" => 
+ out_alu<= inp_a + inp_b; --addition 
+ when "001" => 
+ out_alu<= inp_a - inp_b; --subtraction 
+ when "010" => 
+ out_alu<= inp_a - 1; --sub 1 
+ when "011" => 
+ out_alu<= inp_a + 1; --add 1 
+ when "100" => 
+ out_alu<= inp_a and inp_b; --AND gate 
+ when "101" => 
+ out_alu<= inp_a or inp_b; --OR gate 
+ when "110" => 
+ out_alu<= not inp_a ; --NOT gate 
+ when "111" => 
+ out_alu<= inp_a xor inp_b; --XOR gate 
+ when others =>
+ NULL;
+end case; 
+ 
+end process; 
+
+end Behavioral;
+```
+
+---
