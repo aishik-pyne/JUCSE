@@ -2,24 +2,24 @@
 
 ## Index
 
-1. [x] Half Adder
-2. [x] Full Adder Deisgn using Half Adder
-3. [x] 4 Bit Ripple Carry Adder design using 1 Bit Full Adder.
-4. [x] Adder Subtractor Block
-5. [ ] BCD Adder
-6. [x] 2:1 Multiplexer
-7. [x] 4:1 Multiplexer design using 2:1 Multiplexer
-8. [x] 1:4 Demultiplexer
-9. [ ] 3:8 Decoder
-10. [ ] Flip Flip
-    - D Flip Flip
-    - RS Flip Flip
-    - JK Flip Flip
-    - T Flip Flip
-11. [x] 7 Segment Decoder
-12. [x] 4 Bit Comparator
-13. [ ] Binary-to-Gray Code Converter
-14. [x] 4 Bit ALU
+1. Half Adder
+2. Full Adder Deisgn using Half Adder
+3. 4 Bit Ripple Carry Adder design using 1 Bit Full Adder.
+4. Adder Subtractor Block
+5. BCD Adder
+6. 2:1 Multiplexer
+7. 4:1 Multiplexer design using 2:1 Multiplexer
+8. 1:4 Demultiplexer
+9. 3:8 Decoder
+10. Flip Flop
+    - D Flip Flop
+    - RS Flip Flop
+    - JK Flip Flop
+    - T Flip Flop
+11. 7 Segment Decoder
+12. 4 Bit Comparator
+13. Binary-to-Gray Code Converter
+14. 4 Bit ALU
 
 ---
 
@@ -396,6 +396,68 @@ end Behavioral;
 **Circuit Diagram** :
 
 <img src="diagrams/4x1demux.png" alt="drawing"  height="300"/>
+
+**Truth Table** :
+
+ |   F   |  S0   |  S1   |   A   |   B   |   C   |   D   |
+ | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+ |   1   |   0   |   0   |   1   |   0   |   0   |   0   |
+ |   1   |   0   |   1   |   0   |   1   |   0   |   0   |
+ |   1   |   1   |   0   |   0   |   0   |   1   |   0   |
+ |   1   |   1   |   1   |   0   |   0   |   0   |   1   |
+ |   0   |   X   |   X   |   0   |   0   |   0   |   0   |
+
+**VHDL Code** :
+
+```vhdl
+----------------------------------------------------------------------------------
+-- Design Name:    4:1 De Multiplexer Design
+-- Module Name:    demux41 - Behavioral 
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity demux41 is
+    Port ( a : in  STD_LOGIC_VECTOR (3 downto 0);
+           s : in  STD_LOGIC_VECTOR (1 downto 0);
+           y : out  STD_LOGIC);
+end demux41;
+
+architecture Behavioral of demux41 is
+
+begin
+
+process(f,s)
+
+    variable temp:std_logic;
+
+    begin
+    case s is
+        when "00" => temp:=A;
+        when "01" => temp:=B;
+        when "10" => temp:=C;
+        when "11" => temp:=D;
+        when others => temp:='X';
+    end case;
+    y<= temp and f;
+
+    end process;
+
+end Behavioral;
+
+```
+
+---
+
+## 3 to 8 Decoder
+
+**Experiment Number** : 8
+
+**Experiment Name** : 3 to 8 Decoder
+
+**Circuit Diagram** :
+
+<img src="diagrams/3x8decoder.png" alt="drawing"  height="500"/>
 
 **Truth Table** :
 
